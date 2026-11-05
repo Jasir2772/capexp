@@ -1,67 +1,30 @@
-settings:
-  use-permissions: true
-  require-glass-bottle: true
-  enable-redeem: true
-  anti-spam-delay: 2
-
-# CapMine Anti-Dupe Tizimi
-security:
-  accept-legacy-bottles: true
-  signature-key: 'CapMineSecretKey_ChangeThis_2024' # Buni o'zgartiring!
-  use-pdc: true # NBT o'rniga zamonaviy PDC ishlatish
-
-logging:
-  debug: false
-
-sounds:
-  success: ENTITY_PLAYER_LEVELUP
-  error: BLOCK_ANVIL_LAND
-  redeem: ENTITY_EXPERIENCE_ORB_PICKUP
-  reload: BLOCK_NOTE_BLOCK_PLING
+menu:
+  title: '&#FF0000CapMine &#FFFFFFExᴘ &#8B8B8B• &#FFD700Sʏsᴛᴇᴍ'
+  size: 45
 
 levels:
   exp_10:
     exp: 10
-    permission: capmine.exp.level.10
-    cooldown: 0
-    bottle:
-      material: EXPERIENCE_BOTTLE
-      name: '&#00FFCC10 &#FFFFFFʟᴇᴠᴇʟ &#00FFCCᴇxᴘ ʙᴏᴛᴛʟᴇ'
-      custom-model-data: 1001
-      glow: true
+    slot: 20
+    material: EXPERIENCE_BOTTLE
+    name: '&#00FFCC10 &#FFFFFFʟᴇᴠᴇʟ'
   exp_30:
     exp: 30
-    permission: capmine.exp.level.30
-    cooldown: 0
-    bottle:
-      material: EXPERIENCE_BOTTLE
-      name: '&#00FFCC30 &#FFFFFFʟᴇᴠᴇʟ &#00FFCCᴇxᴘ ʙᴏᴛᴛʟᴇ'
-      custom-model-data: 1002
-      glow: true
+    slot: 21
+    material: EXPERIENCE_BOTTLE
+    name: '&#00FFCC30 &#FFFFFFʟᴇᴠᴇʟ'
   exp_50:
     exp: 50
-    permission: capmine.exp.level.50
-    cooldown: 0
-    bottle:
-      material: EXPERIENCE_BOTTLE
-      name: '&#00FFCC50 &#FFFFFFʟᴇᴠᴇʟ &#00FFCCᴇxᴘ ʙᴏᴛᴛʟᴇ'
-      custom-model-data: 1003
-      glow: true
+    slot: 22
+    material: EXPERIENCE_BOTTLE
+    name: '&#00FFCC50 &#FFFFFFʟᴇᴠᴇʟ'
   exp_100:
     exp: 100
-    permission: capmine.exp.level.100
-    cooldown: 5
-    bottle:
-      material: DRAGON_BREATH # 100 level uchun maxsus material
-      name: '&#FFD700100 &#FFFFFFʟᴇᴠᴇʟ &#FFD700ᴇxᴘ ʙᴏᴛᴛʟᴇ'
-      custom-model-data: 1004
-      glow: true
+    slot: 23
+    material: DRAGON_BREATH
+    name: '&#FFD700100 &#FFFFFFʟᴇᴠᴇʟ'
   exp_1000:
     exp: 1000
-    permission: capmine.exp.level.1000
-    cooldown: 30
-    bottle:
-      material: NETHER_STAR # 1000 level uchun afsonaviy
-      name: '&#FF00001000 &#FFFFFFʟᴇᴠᴇʟ &#FF0000ᴇxᴘ ʙᴏᴛᴛʟᴇ'
-      custom-model-data: 1005
-      glow: true
+    slot: 24
+    material: NETHER_STAR
+    name: '&#FF00001000 &#FFFFFFʟᴇᴠᴇʟ'
