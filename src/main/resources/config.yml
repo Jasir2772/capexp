@@ -1,7 +1,24 @@
-menu:
-  title: '&#FF0000CapMine &#FFFFFFExᴘ &#8B8B8B• &#FFD700Sʏsᴛᴇᴍ'
-  size: 45
+# ==========================================
+# CapMine Premium EXP Tizimi
+# ==========================================
 
+menu:
+  title: '&#00FF00CapMine &#FFFFFFExᴘ &#8B8B8B• &#FFD700Sʏsᴛᴇᴍ' # Yashil, Oq, Kulrang, Oltin
+  size: 45
+  border-material: LIME_STAINED_GLASS_PANE # Sariq o'rniga yashil (Lime) shisha
+
+settings:
+  require-bottle: true # Bo'sh shisha talab qilinsinmi?
+
+# Ovozlar (Minecraft-dagi ovoz nomlari)
+sounds:
+  menu-open: BLOCK_NOTE_BLOCK_PLING
+  click: UI_BUTTON_CLICK
+  save-success: ENTITY_PLAYER_LEVELUP
+  redeem-success: ENTITY_EXPERIENCE_ORB_PICKUP
+  error: BLOCK_ANVIL_LAND
+
+# Darajalar va ularning sozlamalari
 levels:
   exp_10:
     exp: 10
