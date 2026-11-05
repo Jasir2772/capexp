@@ -1,0 +1,108 @@
+menu:
+  title: '&#FF0000CapMine &#FFFFFFExᴘ &#8B8B8B• &#FFD700Sʏsᴛᴇᴍ'
+  size: 45
+  # Animatsiya sozlamalari (Har 10 tckda rang o'zgaradi)
+  animation:
+    enabled: true
+    materials:
+      - YELLOW_STAINED_GLASS_PANE
+      - ORANGE_STAINED_GLASS_PANE
+      - RED_STAINED_GLASS_PANE
+
+items:
+  border:
+    material: YELLOW_STAINED_GLASS_PANE
+    name: ' '
+    slots: [0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,37,38,39,40,41,42,43,44]
+    sound: BLOCK_NOTE_BLOCK_HAT
+  
+  exp_10:
+    level: exp_10
+    material: EXPERIENCE_BOTTLE
+    slot: 19
+    name: '&#00FFCC10 &#FFFFFFʟᴇᴠᴇʟ'
+    lore:
+      - '&#8B8B8BCapMine ᴘʀᴇᴍɪᴜᴍ ᴇxᴘ'
+      - ''
+      - ' &#FFFFFFSᴛᴏʀᴇᴅ: &#00FFCC{stored_levels}'
+      - ' &#FFFFFFRᴇǫᴜɪʀᴇᴅ: &#00FFCC{required_level}'
+      - ''
+      - ' &#00FFCC● Cʟɪᴄᴋ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ'
+    glow: true
+    sound: UI_BUTTON_CLICK
+    actions: [convert, refresh]
+
+  exp_30:
+    level: exp_30
+    material: EXPERIENCE_BOTTLE
+    slot: 21
+    name: '&#00FFCC30 &#FFFFFFʟᴇᴠᴇʟ'
+    lore:
+      - '&#8B8B8BCapMine ᴘʀᴇᴍɪᴜᴍ ᴇxᴘ'
+      - ''
+      - ' &#FFFFFFSᴛᴏʀᴇᴅ: &#00FFCC{stored_levels}'
+      - ' &#FFFFFFRᴇǫᴜɪʀᴇᴅ: &#00FFCC{required_level}'
+      - ''
+      - ' &#00FFCC● Cʟɪᴄᴋ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ'
+    glow: true
+    sound: UI_BUTTON_CLICK
+    actions: [convert, refresh]
+
+  exp_50:
+    level: exp_50
+    material: EXPERIENCE_BOTTLE
+    slot: 23
+    name: '&#00FFCC50 &#FFFFFFʟᴇᴠᴇʟ'
+    lore:
+      - '&#8B8B8BCapMine ᴘʀᴇᴍɪᴜᴍ ᴇxᴘ'
+      - ''
+      - ' &#FFFFFFSᴛᴏʀᴇᴅ: &#00FFCC{stored_levels}'
+      - ' &#FFFFFFRᴇǫᴜɪʀᴇᴅ: &#00FFCC{required_level}'
+      - ''
+      - ' &#00FFCC● Cʟɪᴄᴋ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ'
+    glow: true
+    sound: UI_BUTTON_CLICK
+    actions: [convert, refresh]
+
+  exp_100:
+    level: exp_100
+    material: DRAGON_BREATH
+    slot: 30
+    name: '&#FFD700100 &#FFFFFFʟᴇᴠᴇʟ'
+    lore:
+      - '&#8B8B8BCapMine ᴘʀᴇᴍɪᴜᴍ ᴇxᴘ'
+      - ''
+      - ' &#FFFFFFSᴛᴏʀᴇᴅ: &#FFD700{stored_levels}'
+      - ' &#FFFFFFRᴇǫᴜɪʀᴇᴅ: &#FFD700{required_level}'
+      - ' &#FF0000Cᴏᴏʟᴅᴏᴡɴ: &#FFD700{cooldown_remaining}'
+      - ''
+      - ' &#FFD700● Cʟɪᴄᴋ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ'
+    glow: true
+    sound: ENTITY_ENDERMAN_TELEPORT
+    actions: [convert, refresh]
+
+  exp_1000:
+    level: exp_1000
+    material: NETHER_STAR
+    slot: 32
+    name: '&#FF00001000 &#FFFFFFʟᴇᴠᴇʟ'
+    lore:
+      - '&#8B8B8BCapMine ᴘʀᴇᴍɪᴜᴍ ᴇxᴘ'
+      - ''
+      - ' &#FFFFFFSᴛᴏʀᴇᴅ: &#FF0000{stored_levels}'
+      - ' &#FFFFFFRᴇǫᴜɪʀᴇᴅ: &#FF0000{required_level}'
+      - ' &#FF0000Cᴏᴏʟᴅᴏᴡɴ: &#FFD700{cooldown_remaining}'
+      - ''
+      - ' &#FF0000● Cʟɪᴄᴋ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ'
+    glow: true
+    sound: ENTITY_WITHER_SPAWN
+    actions: [convert, refresh]
+
+  close:
+    material: BARRIER
+    slot: 40
+    name: '&#FF0000Cʟᴏsᴇ'
+    lore:
+      - ' &#FFFFFFMᴇɴʏᴜɴɪ ʏᴏᴘɪsʜ'
+    sound: BLOCK_CHEST_CLOSE
+    actions: [close]
