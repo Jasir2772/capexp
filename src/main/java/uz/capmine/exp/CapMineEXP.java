@@ -34,29 +34,35 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
     public void onEnable() {
         getLogger().info("CapMine Premium EXP tizimi yoqildi!");
         saveDefaultConfig();
-
+        
         this.expKey = new NamespacedKey(this, "capmine_exp_amount");
-
+        
         this.getCommand("capexp").setExecutor(this);
         this.getServer().getPluginManager().registerEvents(this, this);
     }
 
     @Override
-    public void onDisable() {
-        getLogger().info("CapMine EXP tizimi o'chirildi.");
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Bu buyruqni faqat o'yinchilar ishlata oladi.");
-            return true;
-        }
-
-        Player player = (Player) sender;
-
         if (command.getName().equalsIgnoreCase("capexp")) {
-            openMenu(player);
+            if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
+                if (sender.hasPermission("capmine.exp.admin")) {
+                    reloadConfig();
+                    sender.sendMessage(color("&a[CapMine] &fConfig muvaffaqiyatli yangilandi!"));
+                    if (sender instanceof Player) {
+                        playSound((Player) sender, "click");
+                    }
+                } else {
+                    sender.sendMessage(color("&c[CapMine] Sizda ruxsat yo'q!"));
+                }
+                return true;
+            }
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Faqat o'yinchilar uchun!");
+                return true;
+            }
+
+            openMenu((Player) sender);
             return true;
         }
         return false;
@@ -65,11 +71,19 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
     private void openMenu(Player player) {
         int size = getConfig().getInt("menu.size", 45);
         String title = color(getConfig().getString("menu.title", "&cCapMine EXP"));
+        String borderMatName = getConfig().getString("menu.border-material", "LIME_STAINED_GLASS_PANE");
+        
+        Material borderMat;
+        try {
+            borderMat = Material.valueOf(borderMatName);
+        } catch (Exception e) {
+            borderMat = Material.LIME_STAINED_GLASS_PANE;
+        }
 
         Inventory menu = Bukkit.createInventory(null, size, title);
 
-        // 1. Chegaralarni to'ldirish (Sariq oynalar)
-        ItemStack border = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE);
+        // Chegaralarni to'ldirish
+        ItemStack border = new ItemStack(borderMat);
         ItemMeta borderMeta = border.getItemMeta();
         if (borderMeta != null) {
             borderMeta.setDisplayName(" ");
@@ -82,7 +96,7 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
             }
         }
 
-        // 2. Configdan level qo'shish
+        // Level qo'shish
         if (getConfig().getConfigurationSection("levels") != null) {
             for (String key : getConfig().getConfigurationSection("levels").getKeys(false)) {
                 int exp = getConfig().getInt("levels." + key + ".exp");
@@ -94,7 +108,7 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
                 try {
                     mat = Material.valueOf(matName);
                 } catch (Exception e) {
-                    mat = Material.EXPERIENCE_BOTTLE; // Agar material xato yozilgan bo'lsa
+                    mat = Material.EXPERIENCE_BOTTLE;
                 }
 
                 ItemStack item = new ItemStack(mat);
@@ -112,12 +126,8 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
                     lore.add(color("&e● &fSaqlash uchun bosing!"));
 
                     meta.setLore(lore);
-                    
-                    // Yaltirash effekti (1.19.4 uchun DURABILITY ishlatiladi)
                     meta.addEnchant(Enchantment.DURABILITY, 1, true);
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-
-                    // Idishga maxsus "imzo" qo'shish
                     meta.getPersistentDataContainer().set(expKey, PersistentDataType.INTEGER, exp);
 
                     item.setItemMeta(meta);
@@ -126,7 +136,7 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
             }
         }
 
-        // 3. Yopish tugmasi
+        // Yopish
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = close.getItemMeta();
         if (closeMeta != null) {
@@ -136,13 +146,13 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
         menu.setItem(size - 5, close);
 
         player.openInventory(menu);
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+        playSound(player, "menu-open");
     }
 
     @EventHandler
     public void onMenuClick(InventoryClickEvent event) {
         if (event.getView().getTitle().equals(color(getConfig().getString("menu.title", "&cCapMine EXP")))) {
-            event.setCancelled(true); // Item o'g'irlashni to'xtatish
+            event.setCancelled(true);
             if (event.getCurrentItem() == null) return;
 
             Player player = (Player) event.getWhoClicked();
@@ -150,32 +160,30 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
 
             if (clicked.getType() == Material.BARRIER) {
                 player.closeInventory();
-                player.playSound(player.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1f, 1f);
+                playSound(player, "click");
                 return;
             }
 
-            // Agar EXP idishi bosilsa
             if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(expKey, PersistentDataType.INTEGER)) {
                 int requiredExp = clicked.getItemMeta().getPersistentDataContainer().get(expKey, PersistentDataType.INTEGER);
 
                 if (player.getLevel() < requiredExp) {
                     player.sendMessage(color("&c[CapMine] Sizda yetarli EXP daraja yo'q! Kerak: &e" + requiredExp));
-                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1f, 1f);
+                    playSound(player, "error");
                     return;
                 }
 
-                // Shisha borligini tekshirish
-                if (!player.getInventory().contains(Material.GLASS_BOTTLE)) {
+                if (getConfig().getBoolean("settings.require-bottle", true) && !player.getInventory().contains(Material.GLASS_BOTTLE)) {
                     player.sendMessage(color("&c[CapMine] Inventarda bo'sh shisha (Glass Bottle) kerak!"));
-                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1f, 1f);
+                    playSound(player, "error");
                     return;
                 }
 
-                // EXPni ayirish va shishani olish
                 player.setLevel(player.getLevel() - requiredExp);
-                player.getInventory().removeItem(new ItemStack(Material.GLASS_BOTTLE, 1));
+                if (getConfig().getBoolean("settings.require-bottle", true)) {
+                    player.getInventory().removeItem(new ItemStack(Material.GLASS_BOTTLE, 1));
+                }
 
-                // Yangi EXP idishini yaratish (PDC bilan)
                 ItemStack expBottle = new ItemStack(clicked.getType());
                 ItemMeta meta = expBottle.getItemMeta();
                 if (meta != null) {
@@ -195,43 +203,49 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
                     expBottle.setItemMeta(meta);
                 }
 
-                // O'yinchiga berish
                 player.getInventory().addItem(expBottle);
-                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                 player.sendMessage(color("&a[CapMine] &f" + requiredExp + " level EXP idishga saqlandi!"));
+                playSound(player, "save-success");
                 player.closeInventory();
             }
         }
     }
 
-    // Idishni o'ng tugma bilan bosganda EXPni qaytarish
     @EventHandler
     public void onBottleRedeem(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack item = event.getItem();
             if (item != null && item.hasItemMeta()) {
                 if (item.getItemMeta().getPersistentDataContainer().has(expKey, PersistentDataType.INTEGER)) {
-                    event.setCancelled(true); // Oddiy EXP tushib ketishini to'xtatish
+                    event.setCancelled(true);
 
                     Player player = event.getPlayer();
                     int storedExp = item.getItemMeta().getPersistentDataContainer().get(expKey, PersistentDataType.INTEGER);
 
-                    // Idishni o'chirish
                     item.setAmount(item.getAmount() - 1);
 
-                    // EXPni qaytarish
                     player.giveExpLevels(storedExp);
-                    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+                    playSound(player, "redeem-success");
                     player.sendMessage(color("&a[CapMine] &f" + storedExp + " level EXP qaytarildi!"));
                 }
             }
         }
     }
 
-    // Ranglarni o'qish uchun kichik yordamchi (HEX va & belgilari)
+    // Ovozlarni configdan o'qish funksiyasi
+    private void playSound(Player player, String soundPath) {
+        String soundName = getConfig().getString("sounds." + soundPath);
+        if (soundName != null) {
+            try {
+                Sound sound = Sound.valueOf(soundName.toUpperCase());
+                player.playSound(player.getLocation(), sound, 1f, 1f);
+            } catch (IllegalArgumentException ignored) {}
+        }
+    }
+
+    // HEX ranglarini o'qish
     private String color(String text) {
         if (text == null) return "";
-        // &#FF0000 formatini Minecraftning maxsus formatiga o'girish
         Pattern pattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
         Matcher matcher = pattern.matcher(text);
         StringBuffer buffer = new StringBuffer();
@@ -244,8 +258,6 @@ public class CapMineEXP extends JavaPlugin implements CommandExecutor, Listener 
             matcher.appendReplacement(buffer, replacement.toString());
         }
         matcher.appendTail(buffer);
-
-        // Qolgan & belgilarini o'girish
         return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', buffer.toString());
     }
-                }
+            }
