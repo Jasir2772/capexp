@@ -1,4 +1,4 @@
-lname: CapMineEXP
+name: CapMineEXP
 version: 1.0.0
 main: uz.capmine.exp.CapMineEXP
 api-version: '1.19'
@@ -10,5 +10,5 @@ commands:
     aliases: [cxp, expmenu, exp]
 permissions:
   capmine.exp.admin:
-    description: Admin huquqlari (reload uchun)
+    description: Admin huquqlari
     default: op
