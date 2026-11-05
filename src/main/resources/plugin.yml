@@ -1,7 +1,7 @@
 name: CapMineEXP
 version: 1.0.0
 main: uz.capmine.exp.CapMineEXP
-api-version: '1.21'
+api-version: '1.19'
 author: CapMine
 description: Premium EXP Bottling System by CapMine
 commands:
