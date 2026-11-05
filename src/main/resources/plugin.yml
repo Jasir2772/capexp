@@ -1,4 +1,4 @@
-name: CapMineEXP
+lname: CapMineEXP
 version: 1.0.0
 main: uz.capmine.exp.CapMineEXP
 api-version: '1.19'
@@ -6,9 +6,9 @@ author: CapMine
 description: Premium EXP Bottling System by CapMine
 commands:
   capexp:
-    description: CapMine EXP menyusini ochish
+    description: CapMine EXP menyusini ochish va boshqarish
     aliases: [cxp, expmenu, exp]
 permissions:
   capmine.exp.admin:
-    description: Admin huquqlari
+    description: Admin huquqlari (reload uchun)
     default: op
