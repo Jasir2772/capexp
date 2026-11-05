@@ -1,0 +1,12 @@
+messages:
+  prefix: '&#FF0000CapMine &#8B8B8B» &#FFFFFF'
+  no-permission: '{prefix}&#FF0000Sizda bu amalni bajarish uchun ruxsat yo''q.'
+  invalid-level: '{prefix}&#FF0000Bunday daraja topilmadi.'
+  no-exp: '{prefix}&#FF0000Sizda yetarli EXP yo''q. Kerak: &#FFD700{required_level}'
+  no-bottle: '{prefix}&#FF0000Inventarda bo''sh shisha (Glass Bottle) kerak!'
+  inventory-full: '{prefix}&#FF0000Inventarda joy yo''q!'
+  success: '{prefix}&#00FFCC{stored_levels} &#FFFFFFdaraja EXP idishga saqlandi.'
+  redeem-success: '{prefix}&#00FFCC{stored_levels} &#FFFFFFdaraja EXP qaytarildi.'
+  cooldown: '{prefix}&#FF0000Kuting: &#FFD700{cooldown_remaining}s'
+  anti-dupe: '{prefix}&#FF0000Bu idish qalbakilashtirilgan (Anti-Dupe)!'
+  reload: '{prefix}&#00FFCCConfig muvaffaqiyatli yangilandi.'
