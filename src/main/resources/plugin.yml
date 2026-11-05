@@ -5,9 +5,9 @@ api-version: '1.19'
 author: CapMine
 description: Premium EXP Bottling System by CapMine
 commands:
-  capexp:
+  capexp: "10 30 50 100 1000"
     description: CapMine EXP menyusini ochish
-    aliases: [cxp, expmenu]
+    aliases: [cxp, expmenu, exp]
 permissions:
   capmine.exp.admin:
     description: Admin huquqlari
